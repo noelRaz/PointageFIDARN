@@ -143,7 +143,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" name="persFonc" class="form-control" id="persFonc" placeholder="Entrer adresse fonction" required>
+                                            <input type="text" name="persFonc" class="form-control uppercase" id="persFonc" placeholder="Entrer adresse fonction" required>
                                         </div>
                                     </div>
                                     <div class="form-group">

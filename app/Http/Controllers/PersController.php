@@ -80,7 +80,7 @@ class PersController extends Controller
         $pers ->persPrenom = ucwords(strtolower($request->input('persPrenom')));
         $pers ->pers_code = $number;
         $pers ->persEmail = strtolower($request->input('persEmail'));
-        $pers ->persFonc = $request->input('persFonc');
+        $pers ->persFonc = strtoupper($request->input('persFonc'));
         $pers ->persTel = $request->input('persTel');
         $pers -> save();
         if($pers){
