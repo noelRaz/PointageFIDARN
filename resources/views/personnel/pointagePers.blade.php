@@ -33,10 +33,10 @@
               <div class="card-body">
                 <div class="grid grid-cols-1 md:grid-cols-2">
                     <div class="">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-ajout">
+                        {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-ajout">
                             <span class="fa fa-qrcode">&nbsp;</span>
                             Scanner QR Code
-                        </button>
+                        </button> --}}
                     </div>
                     <div class="ml-auto">
                         <form method="get" action="pointageFiltre">
