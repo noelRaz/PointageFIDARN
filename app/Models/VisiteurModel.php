@@ -12,9 +12,8 @@ class VisiteurModel extends Model
     protected $primaryKey = 'visiID';
     protected $fillable = [
         'visiNom',
-        'visiPrenom',
-        'visiCIN',
-        'visiTel',
-        'visiPers'
+        'nomCIN1',
+        'nomCIN2',
+        'sortie'
     ];
 }

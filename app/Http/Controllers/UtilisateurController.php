@@ -14,11 +14,29 @@ class UtilisateurController extends Controller
         return view('utilisateur/utilisateur', compact('data'));
     }
 
-    public function deleteUser($id)
+    // public function deleteUser($id)
+    // {
+    //     $datapers = User::find($id);
+    //     $datapers ->delete();
+    //     //Alert::info('Suppression', 'Utilisateur supprimer avec succès');
+    //     return redirect('utilisateur');
+    // }
+
+    public function suppUser($id)
     {
+        $persn = User::find($id);
+        return response()->json([
+            'status'=>200,
+            'persn'=>$persn,
+        ]);
+    }
+
+    public function deleteUser(Request $request)
+    {
+        $id = $request->input('idSupp');
         $datapers = User::find($id);
         $datapers ->delete();
-        //Alert::info('Suppression', 'Utilisateur supprimer avec succès');
+        //Alert::info('Suppression', 'Personnel supprimer avec succès');
         return redirect('utilisateur');
     }
 
@@ -30,17 +48,6 @@ class UtilisateurController extends Controller
             'personnel'=>$personnel,
         ]);
     }
-
-    // public function updateUser(Request $request, $id)
-    // {
-    //     $user = User::find($id);
-    //     $user ->admin = $request->input('userAdmin');
-    //     $user ->role = $request->input('userEtat');
-
-
-    //     $user -> update();
-    //     return redirect('utilisateur');
-    // }
 
     public function updateUser(Request $request)
     {

@@ -49,20 +49,24 @@
                             <div class="bg-darkblue rounded-lg mt-1">
                                 <x-application-logo/>
                             </div> --}}
+                            <div class="mt-2">
+                                {!! DNS2D::getBarcodeHTML("$pers->ext_code", 'QRCODE',4, 4) !!}
+                            </div>
+                            <!--
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="mt-2">
-                                    {!! DNS2D::getBarcodeHTML("$pers->ext_code", 'QRCODE',6, 6) !!}
+                                    {!! DNS2D::getBarcodeHTML("$pers->ext_code", 'QRCODE',4, 4) !!}
                                 </div>
-                                <div class="cadre bg-black rounded border mt-2 ml-auto">
+                                <div class="cadr bg-black rounded border mt-2 ml-auto">
                                     <div class="m-k photo rounded bg-white">
                                         <label for="Photo" class="ml-md-3 mt-5 ml-3">Photo 4*4</label>
                                     </div>
                                 </div>
 
-                            </div>
+                            </div>-->
                                 <!--Nom-->
                             <div class="mt-2">
-                                <label>Nom et Prénom</label>
+
                                 <input id="persNomModif"
                                             class="inputText border-transparent block rounded mt-0 w-full"
                                             type="text" name="persNomModif"
@@ -116,19 +120,6 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-<!-- DataTables  & Plugins -->
-<script src="{{ asset('datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <script>
     function capturer(){
         var carte = new html2canvas(document.getElementById("badge"));
@@ -137,80 +128,3 @@
     });
     }
 </script>
-<script>
-  $(function () {
-    $("#persListe").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis","add"]
-    }).buttons().container().appendTo('#persListe_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-
-<script>
-    $(document).ready(function(){
-        $(document).on('click', '.editPers', function(){
-            var ext_code = $(this).val();
-            $('#modifierModal').modal('show');
-
-            $.ajax({
-                type: "GET",
-                url:"/editpersonnel/"+ext_code,
-                success: function(response){
-                    $('#id').val(ext_code);
-                    $('#nom').val(response.personnel.extNom);
-                    $('#prenom').val(response.personnel.extPrenom);
-                    $('#email').val(response.personnel.extEmail);
-                    $('#fonction').val(response.personnel.extFonc);
-                    $('#contact').val(response.personnel.extTel);
-                }
-            });
-        });
-
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
-        $(document).on('click', '.suppPers', function(){
-            var pers_code = $(this).val();
-            $('#modal-supp').modal('show');
-
-            $.ajax({
-                type: "GET",
-                url:"/supprimePers/"+pers_code,
-                success: function(response){
-                    $('#idSupp').val(pers_code);
-                }
-            });
-        });
-
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
-        $(document).on('click', '.suppPers', function(){
-            var pers_code = $(this).val();
-            $('#modal-supp').modal('show');
-
-            $.ajax({
-                type: "POST",
-                url:"/supprimePers/"+pers_code,
-                success: function(response){
-                    $('#idSupp').val(pers_code);
-                }
-            });
-        });
-
-    });
-</script>
-

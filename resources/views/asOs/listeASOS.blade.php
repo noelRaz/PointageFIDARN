@@ -66,8 +66,8 @@
                                 <div class="dropdown-menu" role="menu">
                                     <a href="{{"carteExt/".$item->ext_code }}" >
                                         <button type="button" class="dropdown-item mt-2 btn btn-info affichePers">
-                                            <span class="fa fa-eye"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                Affiche
+                                            <span class="fa fa-qrcode"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                QR Code
                                         </button>
                                     </a>
                                     <button type="button" value="{{ $item->ext_code }}" class="dropdown-item mt-2 btn btn-secodary editPers" data-toggle="modal" data-target="#modifierModal">
@@ -143,7 +143,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" name="extFonc" class="form-control" id="extFonc" placeholder="Entrer adresse fonction" required>
+                                            <input type="text" name="extFonc" class="form-control uppercase" id="extFonc" placeholder="Entrer adresse fonction" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -180,7 +180,7 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title">Suppression du personnel</h4>
+                          <h4 class="modal-title">Suppression du CI/OS</h4>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -189,7 +189,7 @@
                             @csrf
                             @method('PUT')
                             <div class="modal-body">
-                                <input type="text" class="form-control" id="idSupp" name="idSupp">
+                                <input type="hidden" class="form-control" id="idSupp" name="idSupp">
 
                             <p>Voulez-vous vraiment supprimer&hellip;</p>
                             </div>
@@ -365,4 +365,3 @@
 
     });
 </script>
-

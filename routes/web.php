@@ -41,6 +41,7 @@ Route::get('/listeAS', [AccSpeController::class, 'index'])->middleware(['auth'])
 Route::post('addExt', [AccSpeController::class, 'addExt']);
 Route::post('addPointExt', [AccSpeController::class, 'addExtPoint']);
 Route::put('/deleteExt', [AccSpeController::class, 'deleteExt'])->middleware(['auth'])->name('deleteExt');
+Route::get('/supprimeExt/{persID}', [AccSpeController::class, 'suppExt'])->middleware(['auth'])->name('suppExt');
 Route::get('/detailpersext/{persID}', [AccSpeController::class, 'detailExt'])->middleware(['auth'])->name('detailext');
 Route::get('/editExt/{persID}', [AccSpeController::class, 'edit'])->middleware(['auth'])->name('editpers');
 Route::put('/updateASOS', [AccSpeController::class, 'updateExt']);
@@ -49,16 +50,18 @@ Route::get('/pointageFiltreExt', [AccSpeController::class, 'pointageFiltreExt'])
 
 //Utilisateur
 Route::get('/utilisateur', [UtilisateurController::class, 'index'])->middleware(['auth'])->name('Utilisateur');
-Route::get('/deleteUser/{id}', [UtilisateurController::class, 'deleteUser'])->middleware(['auth'])->name('DeleteUser');
-Route::get('/editUser/{id}', [UtilisateurController::class, 'editUser'])->middleware(['auth'])->name('editeUser');
+Route::get('/supprimeUser/{userID}', [UtilisateurController::class, 'suppUser'])->middleware(['auth'])->name('suppUser');
+Route::get('/supprimeUser/{persID}', [UtilisateurController::class, 'suppUser'])->middleware(['auth'])->name('suppUser');
+Route::put('/deleteutilisateur', [UtilisateurController::class, 'deleteUser'])->middleware(['auth'])->name('deleteuser');
 Route::put('/updateUser', [UtilisateurController::class, 'updateUser']);
 
 //visiteur
-//Route::get('/visiteurs', [VisiteurController::class, 'index'])->middleware(['auth'])->name('visiteur');
 Route::get('/visiteur', [VisiteurController::class, 'visiteur'])->middleware(['auth'])->name('Visiteur');
 Route::get('/listeVisiteur', [VisiteurController::class, 'listeVis'])->middleware(['auth'])->name('ListeVisiteur');
 Route::post('addVisi', [VisiteurController::class, 'addVisi']);
 Route::get('/visiteurFiltre', [VisiteurController::class, 'visiteurFiltre']);
+Route::get('/editvisiteur/{visiID}', [VisiteurController::class, 'edit'])->middleware(['auth'])->name('editvisi');
+Route::put('/updateVisiteur', [VisiteurController::class, 'updateVisi']);
 
 //pointage
 Route::get('/pointage', [PointageGlobalController::class, 'index'])->middleware(['auth'])->name('index');

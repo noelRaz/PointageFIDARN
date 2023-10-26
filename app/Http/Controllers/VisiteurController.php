@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\VisiteurModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class VisiteurController extends Controller
@@ -14,11 +15,10 @@ class VisiteurController extends Controller
     {
         $todayDate = Carbon::now();
         $data = DB ::table('visiteur')
-        ->select('visiNom', 'visiPrenom', 'visiCIN', 'visiTel', 'visiPers', 'created_at')
+        ->select('visiID','visiNom','nomCIN1','nomCIN2', 'sortie', 'created_at', 'updated_at')
         ->whereDate('created_at', $todayDate)
         ->get();
         return view('visiteur/visiteur', compact('data'));
-        //return view('visiteur.visiteur');
     }
 
     public function listeVisiteur()
@@ -28,21 +28,18 @@ class VisiteurController extends Controller
 
     public function addVisi(Request $request)
     {
-        $visi = new VisiteurModel();
-        $visi ->visiNom = $request->input('visiNom');
-        $visi ->visiPrenom = $request->input('visiPrenom');
-        $visi ->visiCIN = $request->input('visiCIN');
-        $visi ->visiTel = $request->input('visiTel');
-        $visi ->visiPers = $request->input('visiPers');
+        $nomCIN1 = $request->file('photoCIN1')->getClientOriginalName();
+        $nomCIN2 = $request->file('photoCIN2')->getClientOriginalName();
 
-        if($visi){
-            $visi -> save();
-            // Alert::success('Félicitation', 'Visiteur ajouter avec succès');
-            return redirect('visiteur');
-        }else{
-            // Alert::error('Erreur', 'Quelque chose s\'est mal passé');
-            return redirect('visiteur');
-        }
+        $request->file('photoCIN1')->storeAs('public/images/', $nomCIN1);
+        $request->file('photoCIN2')->storeAs('public/images/', $nomCIN2);
+
+        $visi = new VisiteurModel();
+        $visi->visiNom = ucwords(strtolower($request->input('visiNom')));
+        $visi->nomCIN1 = $nomCIN1;
+        $visi->nomCIN2 = $nomCIN2;
+        $visi->save();
+        return redirect('visiteur');
     }
 
     public function visiteurFiltre(Request $request)
@@ -81,5 +78,26 @@ class VisiteurController extends Controller
         }
         $data = $query->get();
         return view('visiteur/visiteur', compact('data'));
+    }
+
+    public function edit($id)
+    {
+        $visiteur = VisiteurModel::find($id);
+        return response()->json([
+            'status'=>200,
+            'visiteur'=>$visiteur,
+        ]);
+    }
+
+    public function updateVisi(Request $request)
+    {
+        $id = $request->input('id');
+        $visi = VisiteurModel::find($id);
+
+        $visi->sortie = $request->input('sortie');
+
+        $visi->update();
+        //Alert::success('Modification', 'Personnel modifier avec succès');
+        return redirect('visiteur');
     }
 }

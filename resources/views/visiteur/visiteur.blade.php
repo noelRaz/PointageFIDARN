@@ -60,33 +60,40 @@
                   <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Nom et Prénom</th>
-                        <th>CIN</th>
-                        <th>Contact</th>
-                        <th>Pers à visiter</th>
-                        <th>Heure</th>
+                        <th>Nom</th>
+                        <th>CIN 1</th>
+                        <th>CIN 2</th>
+                        <th>Entrer</th>
+                        <th>Sortir</th>
+                        <th class="item-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach ($data as $item)
                     <tr>
                         <td>{{date('d-m-Y', strtotime($item->created_at))}}</td>
-                        <td>{{$item->visiNom }} {{$item->visiPrenom}}</td>
-                        <td>{{$item->visiCIN}}</td>
-                        <td>{{$item->visiTel}}</td>
-                        <td>{{$item->visiPers}}</td>
-                        <td>{{date('h:i', strtotime($item->created_at))}}</td>
+                        <td>{{$item->visiNom }}</td>
+                        <td><img src="{{asset('storage/images/'.$item->nomCIN1)}}" class="h-2 w-5"></td>
+                        <td><img src="{{asset('storage/images/'.$item->nomCIN2)}}" class="h-2 w-5"></td>
+                        <td>{{date('H:i', strtotime($item->created_at))}}</td>
+                        <td>{{date('H:i', strtotime($item->updated_at))}}</td>
+                        <td>
+                            <button type="button" value="{{ $item->visiID }}" class="mt-2 btn btn-secodary bg-info editVisi" data-toggle="modal" data-target="#modifierModal">
+                                <span class="fa fa-edit"></span>
+                            </button>
+                        </td>
                     </tr>
                     @endforeach
                   </tbody>
                   <tfoot>
                     <tr>
                         <th>Date</th>
-                        <th>Nom et Prénom</th>
-                        <th>CIN</th>
-                        <th>Contact</th>
-                        <th>Pers à visiter</th>
-                        <th>Heure</th>
+                        <th>Nom</th>
+                        <th>CIN 1</th>
+                        <th>CIN 2</th>
+                        <th>Enter</th>
+                        <th>Sortir</th>
+                        <th>Action</th>
                     </tr>
                   </tfoot>
                 </table>
@@ -94,57 +101,54 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h4 class="modal-title">Nouvelle Visiteur</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                                <h4 class="modal-title">Nouvelle Visiteur</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <form method="POST" action="addVisi">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form method="POST" action="addVisi" enctype="multipart/form-data">
+                                @csrf
                                 <div class="modal-body">
-                                    @csrf
                                     <div class="form-group">
                                         <label>Nom</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" name="visiNom" class="form-control" id="visiNom" placeholder="Entrer nom de visiteur" required>
+                                            <input type="text" name="visiNom" class="form-control text-capitalize" id="visiNom" placeholder="Entrer nom de visiteur" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Prénom(s)</label>
+                                        <label>Photo 1</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-image"></i></span>
                                             </div>
-                                            <input type="text" name="visiPrenom" class="form-control" id="visiPrenom" placeholder="Entrer prénom(s) de visiteur" required>
+                                            <input type="file" accept="image/*" capture="environment" id="fileInput" name="photoCIN1">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>C.I.N</label>
+                                        <label>Photo 2</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-card"></i></span>
+                                                <span class="input-group-text"><i class="fas fa-image"></i></span>
                                             </div>
-                                            <input type="number" name="visiCIN" class="form-control" id="visiCIN" placeholder="Entrer le numéro C.I.N" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Contact</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            </div>
-                                            <input type="number" class="form-control" name="visiTel" id="visiTel" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pers. à visiter</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            </div>
-                                            <input type="text" name="visiPers" class="form-control" id="visiPers" placeholder="Personnel à visiter" required>
+                                            <input type="file" accept="image/*" capture="environment" id="fileInput" name="photoCIN2">
                                         </div>
                                     </div>
                                 </div>
@@ -165,6 +169,43 @@
                     <!-- /.modal-dialog -->
                 </div>
                   <!-- /.modal -->
+                 <!-- Modifier Modal -->
+                 <div class="modal" id="modifierModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Modifier visiteur</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+
+                          <!-- Modal Body -->
+                            <form action="{{ url('updateVisiteur') }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-body">
+                                    <!-- Le formulaire pour modifier les données -->
+                                    <input type="hidden" class="form-control" id="id" name="id">
+
+                                    <div class="form-group">
+                                        <label for="nom">Sortie</label><br/>
+                                        {{-- <input type="text" class="form-control" id="sortie" name="sortie" required> --}}
+                                        <input type="radio" value="Non" name="sortie" class="form-control">
+                                        <label class="mt-3">Non</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" value="Oui" name="sortie" class="form-control">
+                                        <label class="mt-3">Oui</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+
+                              <!-- Modal Footer -->
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn btn-primary" id="saveModif">Enregistrer</button>
+                              </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -216,20 +257,22 @@
     });
   });
 </script>
-{{-- <script>
-    let scanner = new Instascan.Scanner({video: document.getElementById('preview')});
-    Instascan.Camera.getCameras().then(function function_name(cameras){
-        if (cameras.length > 0){
-            scanner.start(cameras[0]);
-        }
-        else{
-            alert('Camera non trouver');
-        }
-    }).catch(function(e){
-        consolee.error(e);
-    });
 
-    scanner.addListener('scan', function(c){
-        document.getElementById('qrResult').value=c;
+<script>
+    $(document).ready(function(){
+        $(document).on('click', '.editVisi', function(){
+            var visiID = $(this).val();
+            $('#modifierModal').modal('show');
+
+            $.ajax({
+                type: "GET",
+                url:"/editvisiteur/"+visiID,
+                success: function(response){
+                    $('#id').val(visiID);
+                    $('#sortie').val(response.visiteur.sortie);
+                }
+            });
+        });
+
     });
-</script> --}}
+</script>

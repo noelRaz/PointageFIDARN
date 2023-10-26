@@ -80,7 +80,7 @@
                                   <span class="sr-only"></span>
                                 </button>
                                 <div class="dropdown-menu" role="menu">
-                                    <button type="button" value="{{ $item->id }}" class="dropdown-item mt-2 btn btn-secodary editPers" data-toggle="modal" data-target="#modifierModal">
+                                    <button type="button" value="{{ $item->id }}" class="dropdown-item mt-2 btn btn-secodary editUser" data-toggle="modal" data-target="#modifierModal">
                                         <span class="fa fa-edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             Modifier
                                     </button>
@@ -106,21 +106,20 @@
                   </tfoot>
                 </table>
 
-                  <!-- modal supprimer-->
-                  <div class="modal fade" id="modal-supp">
+                <div class="modal fade" id="modal-supp">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h4 class="modal-title">Suppression du personnel</h4>
+                          <h4 class="modal-title">Suppression du utilisateur</h4>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <form action="{{ url('deleteExt') }}" method="POST">
+                        <form action="{{ url('deleteutilisateur') }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="modal-body">
-                                <input type="text" class="form-control" id="idSupp" name="idSupp">
+                                <input type="hidden" class="form-control" id="idSupp" name="idSupp">
 
                             <p>Voulez-vous vraiment supprimer&hellip;</p>
                             </div>
@@ -133,8 +132,8 @@
                       <!-- /.modal-content -->
                     </div>
                     <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
+                </div>
+                <!-- /.modal -->
 
                   <!-- Modifier Modal -->
                 <div class="modal" id="modifierModal">
@@ -227,7 +226,7 @@
 
 <script>
     $(document).ready(function(){
-        $(document).on('click', '.editPers', function(){
+        $(document).on('click', '.editUser', function(){
             var id = $(this).val();
             $('#modifierModal').modal('show');
 
@@ -262,22 +261,3 @@
 
     });
 </script>
-
-<script>
-    $(document).ready(function(){
-        $(document).on('click', '.suppPers', function(){
-            var pers_code = $(this).val();
-            $('#modal-supp').modal('show');
-
-            $.ajax({
-                type: "POST",
-                url:"/supprimePers/"+pers_code,
-                success: function(response){
-                    $('#idSupp').val(pers_code);
-                }
-            });
-        });
-
-    });
-</script>
-

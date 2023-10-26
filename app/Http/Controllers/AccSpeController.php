@@ -38,7 +38,7 @@ class AccSpeController extends Controller
         $ext ->extPrenom = ucwords(strtolower($request->input('extPrenom')));
         $ext ->ext_code = $number;
         $ext ->extEmail = strtolower($request->input('extEmail'));
-        $ext ->extFonc = $request->input('extFonc');
+        $ext ->extFonc = strtoupper($request->input('extFonc'));
         $ext ->extTel = $request->input('extTel');
         $ext -> save();
         if($ext){
@@ -161,5 +161,23 @@ class AccSpeController extends Controller
             'pers' => $detail,
         ];
         return view('asOs.detailExt', $data);
+    }
+
+    public function suppPers($id)
+    {
+        $persn = AccSpeModel::find($id);
+        return response()->json([
+            'status'=>200,
+            'persn'=>$persn,
+        ]);
+    }
+
+    public function deletePers(Request $request)
+    {
+        $id = $request->input('idSupp');
+        $datapers = AccSpeModel::find($id);
+        $datapers ->delete();
+        //Alert::info('Suppression', 'Personnel supprimer avec succès');
+        return redirect('listeAS');
     }
 }

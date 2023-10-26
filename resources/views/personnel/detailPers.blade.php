@@ -32,36 +32,11 @@
               <!-- /.card-header -->
                 <div class="card-body" id="captureCard">
                     <div class="m-ca border card-body rounded-lg w-40 h-45 bg-white">
-                        {{-- <div class="grid grid-cols-1 md:grid-cols-2">
-                            <div class="bg-darkblue rounded">
-                                <div class="bg-white mt-1 ml-1 my-1 mr-1 rounded">
-                                    <x-application-rep/>
-                                </div>
-                            </div>
-                            <div class="bg-darkblue rounded">
-                                <div class="bg-white mt-1 ml-1 my-1 mr-1 rounded w-95 h-85">
-                                    <x-application-primature class="mt-4"/>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="bg-darkblue rounded-lg mt-1">
-                            <x-application-logo/>
-                        </div> --}}
-                        <div class="grid grid-cols-1 md:grid-cols-2">
-                            <div class="mt-2">
-                                {!! DNS2D::getBarcodeHTML("$pers->pers_code", 'QRCODE',6, 6) !!}
-                            </div>
-                            <div class="cadre bg-black rounded border mt-2 ml-auto">
-                                <div class="m-k photo rounded bg-white">
-                                    <label for="Photo" class="ml-md-3 mt-5 ml-3">Photo 4*4</label>
-                                </div>
-                            </div>
-
+                        <div class="mt-2">
+                            {!! DNS2D::getBarcodeHTML("$pers->pers_code", 'QRCODE',4, 4) !!}
                         </div>
                             <!--Nom-->
                         <div class="mt-2">
-                            <label>Nom et Prénom</label>
                             <input id="persNomModif"
                                         class="inputText border-transparent block rounded mt-0 w-full"
                                         type="text" name="persNomModif"
@@ -70,23 +45,6 @@
                                         name="nom"
                                         value="{{ $pers->persNom}} {{ $pers->persPrenom}}"/>
                         </div>
-
-                        {{-- <div class="mt-1">
-                            <label>Fonction</label>
-                            <input id="persFoncModif"
-                                        class="uppercase border-transparent block rounded mt-0 w-full"
-                                        type="text" name="persFoncModif"
-                                        value="{{ $pers->persFonc}}"/>
-                        </div>
-
-                        <div class="mt-1">
-                            <label>Direction</label>
-                            <x-direction/>
-                        </div>
-                        <div class="text-center mt-1 bg-darkblue rounded-lg">
-                            <x-site/>
-                        </div> --}}
-
                     </div>
                 </div>
                 <div class="ml-3">

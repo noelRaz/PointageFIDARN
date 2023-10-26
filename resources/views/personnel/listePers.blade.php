@@ -66,8 +66,8 @@
                                 <div class="dropdown-menu" role="menu">
                                     <a href="{{"cartepersonnel/".$item->pers_code }}" >
                                         <button type="button" class="dropdown-item mt-2 btn btn-info affichePers">
-                                            <span class="fa fa-eye"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                Affiche
+                                            <span class="fas fa-qrcode"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                QR Code
                                         </button>
                                     </a>
                                     <button type="button" value="{{ $item->pers_code }}" class="dropdown-item mt-2 btn btn-secodary editPers" data-toggle="modal" data-target="#modifierModal">
@@ -143,7 +143,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                                             </div>
-                                            <input type="text" name="persFonc" class="form-control uppercase" id="persFonc" placeholder="Entrer adresse fonction" required>
+                                            <input type="text" name="persFonc" class="form-control uppercase" id="persFonc" placeholder="Entrer fonction" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -225,21 +225,21 @@
 
                                 <div class="form-group">
                                   <label for="nom">Nom</label>
-                                  <input type="text" class="form-control" id="nom" name="nom" required>
+                                  <input type="text" class="form-control uppercase" id="nom" name="nom" required>
                                 </div>
 
                                 <div class="form-group">
                                   <label for="prenom">Prenom(s)</label>
-                                  <input type="text" class="form-control" id="prenom" name="prenom">
+                                  <input type="text" class="form-control text-capitalizer" id="prenom" name="prenom">
                                 </div>
 
                                 <div class="form-group">
                                   <label for="email">Email</label>
-                                  <input type="email" class="form-control" id="email" name="email">
+                                  <input type="email" class="form-control text-lowercase" id="email" name="email">
                                 </div>
                                 <div class="form-group">
                                   <label for="fonction">Fonction</label>
-                                  <input type="text" class="form-control" id="fonction" name="fonction" required>
+                                  <input type="text" class="form-control uppercase" id="fonction" name="fonction" required>
                                 </div>
                                 <div class="form-group">
                                   <label for="contact">Conctact</label>
